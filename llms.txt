@@ -1,0 +1,21 @@
+# LitroCerto
+
+> Controle de combustível inteligente para motoristas brasileiros.
+
+LitroCerto é um app web (com versões iOS e Android em breve) que permite registrar abastecimentos, monitorar o consumo real do veículo, acompanhar o histórico de gastos e encontrar postos com preço mais baixo próximos ao usuário.
+
+## Links
+
+- App: https://app.litrocerto.com.br
+- Site: https://litrocerto.com.br
+
+## Funcionalidades
+
+- Registro de abastecimentos (posto, litros, preço, hodômetro)
+- Cálculo automático de consumo (km/litro)
+- Histórico e gráficos de consumo
+- Suporte a múltiplos veículos
+- Alertas de consumo acima do normal
+- Relatório mensal de gastos com combustível
+- Postos próximos com menor preço (em breve)
+- Apps nativos para iOS e Android (em breve)
