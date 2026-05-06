@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LitroCerto – Controle de Combustível Inteligente</title>
+  <meta name="description" content="Monitore o consumo do seu veículo, registre abastecimentos e descubra onde o combustível está mais barato perto de você." />
+  <link rel="icon" type="image/png" href="litrocerto-logo-favicon.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #22c55e;
+      --green-dark: #16a34a;
+      --green-light: #dcfce7;
+      --bg: #0f172a;
+      --bg2: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --radius: 14px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 5%;
+      position: sticky;
+      top: 0;
+      background: rgba(15,23,42,.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      z-index: 100;
+    }
+    nav img { height: 36px; }
+    nav a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      border: 2px solid var(--green);
+      padding: 8px 20px;
+      border-radius: 999px;
+      transition: background .2s;
+    }
+    nav a:hover { background: var(--green); color: #fff; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 100px 5% 80px;
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(34,197,94,.18), transparent);
+    }
+    .badge {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 720px;
+      margin: 0 auto 20px;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); }
+    .btn-ghost {
+      color: var(--text);
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 1rem;
+      border: 2px solid rgba(255,255,255,.15);
+      transition: border-color .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); }
+
+    /* MOCKUP PLACEHOLDER */
+    .mockup {
+      margin: 60px auto 0;
+      max-width: 700px;
+      background: var(--bg2);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.07);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-card {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .stat-card .label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+    .stat-card .value { font-size: 1.6rem; font-weight: 800; color: var(--green); }
+    .stat-card .sub { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+
+    /* FEATURES */
+    .section { padding: 80px 5%; }
+    .section-label {
+      text-align: center;
+      color: var(--green);
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 56px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .feature-card:hover { border-color: var(--green); transform: translateY(-4px); }
+    .icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { color: var(--muted); font-size: .9rem; }
+
+    /* HOW */
+    .how { background: var(--bg2); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 860px;
+      margin: 0 auto;
+      counter-reset: step;
+    }
+    .step { text-align: center; counter-increment: step; }
+    .step::before {
+      content: counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: .88rem; }
+
+    /* CTA FINAL */
+    .cta-section {
+      text-align: center;
+      padding: 90px 5%;
+      background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(34,197,94,.15), transparent);
+    }
+    .cta-section h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 12px; }
+    .cta-section p { color: var(--muted); margin-bottom: 36px; font-size: 1rem; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 28px 5%;
+      color: var(--muted);
+      font-size: .82rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    footer span { color: var(--green); }
+
+    @media (max-width: 520px) {
+      .mockup { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <img src="../litrocerto-logo-header-dark-mode.png" alt="LitroCerto" />
+    <a href="https://app.litrocerto.com.br" target="_blank" rel="noopener">Acessar o app</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">Em breve</div>
+    <h1>Controle seu combustível <span>do jeito certo</span></h1>
+    <p>Registre abastecimentos, monitore o consumo real do seu veículo e economize na próxima vez que parar no posto.</p>
+    <div class="cta-group">
+      <a href="https://app.litrocerto.com.br" class="btn-primary" target="_blank" rel="noopener">Acessar o app →</a>
+      <a href="#features" class="btn-ghost">Ver funcionalidades</a>
+    </div>
+    <p style="margin-top:20px;font-size:.82rem;color:var(--muted);">
+      📱 Apps para <strong style="color:var(--text)">iOS e Android</strong> em breve
+    </p>
+
+    <!-- mini dashboard -->
+    <div class="mockup">
+      <div class="stat-card">
+        <div class="label">Média atual</div>
+        <div class="value">11,4</div>
+        <div class="sub">km/litro</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Último abast.</div>
+        <div class="value">R$ 287</div>
+        <div class="sub">50,2 litros</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Economia</div>
+        <div class="value">R$ 43</div>
+        <div class="sub">este mês</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-label">Funcionalidades</div>
+    <h2>Tudo que você precisa para gastar menos</h2>
+    <div class="features">
+      <div class="feature-card">
+        <span class="icon">⛽</span>
+        <h3>Registro de abastecimentos</h3>
+        <p>Adicione em segundos: posto, litros, preço e hodômetro. O LitroCerto faz o resto.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📊</span>
+        <h3>Histórico e gráficos</h3>
+        <p>Veja a evolução do seu consumo ao longo do tempo e identifique padrões de gasto.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📍</span>
+        <h3>Postos próximos</h3>
+        <p>Descubra onde o combustível está mais barato perto de você antes de abastecer.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🚗</span>
+        <h3>Múltiplos veículos</h3>
+        <p>Gerencie carro, moto ou frota inteira em um só lugar, sem complicação.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🔔</span>
+        <h3>Alertas inteligentes</h3>
+        <p>Receba notificações quando o consumo estiver acima do normal ou o preço cair.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">💸</span>
+        <h3>Relatório de gastos</h3>
+        <p>Saiba exatamente quanto você gasta com combustível por mês, semana ou viagem.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section how">
+    <div class="section-label">Como funciona</div>
+    <h2>Simples assim</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>Cadastre seu veículo</h3>
+        <p>Modelo, ano e tipo de combustível. Leva menos de 1 minuto.</p>
+      </div>
+      <div class="step">
+        <h3>Registre cada abastecimento</h3>
+        <p>Informe o preço, os litros e o odômetro. Pode ser rápido ou detalhado — você escolhe.</p>
+      </div>
+      <div class="step">
+        <h3>Acompanhe seu consumo</h3>
+        <p>Veja gráficos claros e descubra se está gastando mais do que deveria.</p>
+      </div>
+      <div class="step">
+        <h3>Economize</h3>
+        <p>Use os insights para abastecer no momento e no posto certo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-section" id="download">
+    <h2>Comece a economizar hoje</h2>
+    <p>Acesse pelo navegador agora mesmo. Apps para iOS e Android chegando em breve.</p>
+    <div class="cta-group">
+      <a href="https://app.litrocerto.com.br" class="btn-primary" target="_blank" rel="noopener">Acessar app.litrocerto.com.br →</a>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;margin-top:28px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 20px;">
+        <span style="font-size:1.4rem;">🍎</span>
+        <div style="text-align:left;">
+          <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">Em breve</div>
+          <div style="font-size:.9rem;font-weight:700;">App Store</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 20px;">
+        <span style="font-size:1.4rem;">🤖</span>
+        <div style="text-align:left;">
+          <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">Em breve</div>
+          <div style="font-size:.9rem;font-weight:700;">Google Play</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>LitroCerto</span>. Feito com cuidado para quem quer gastar menos com combustível.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
