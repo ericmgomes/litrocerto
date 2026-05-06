@@ -202,6 +202,45 @@
     .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
     .step p { color: var(--muted); font-size: .88rem; }
 
+    /* AI SECTION */
+    .ai-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .ai-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color .2s, transform .2s;
+    }
+    .ai-card:hover { border-color: var(--green); transform: translateY(-4px); }
+    .ai-card .ai-num {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--green);
+    }
+    .ai-card h3 { font-size: 1.05rem; font-weight: 700; }
+    .ai-card p { color: var(--muted); font-size: .88rem; flex: 1; }
+    .ai-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--green);
+      font-size: .85rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .ai-card a:hover { text-decoration: underline; }
+
     /* CTA FINAL */
     .cta-section {
       text-align: center;
@@ -329,6 +368,39 @@
         <h3>Economize</h3>
         <p>Use os insights para abastecer no momento e no posto certo.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- AI SECTION -->
+  <section class="section">
+    <div class="section-label">Inteligência Artificial</div>
+    <h2>Controle seu combustível conversando com IA</h2>
+    <div class="ai-cards">
+
+      <div class="ai-card">
+        <span class="ai-num">01</span>
+        <span style="font-size:2rem;">🤖</span>
+        <h3>Assistente no próprio app</h3>
+        <p>Converse diretamente dentro do LitroCerto. Registre abastecimentos, consulte seu histórico e tire dúvidas sem sair do app.</p>
+        <a href="https://app.litrocerto.com.br" target="_blank" rel="noopener">Abrir o app →</a>
+      </div>
+
+      <div class="ai-card">
+        <span class="ai-num">02</span>
+        <span style="font-size:2rem;">💬</span>
+        <h3>CustomGPT no ChatGPT</h3>
+        <p>Use o GPT oficial do LitroCerto direto no ChatGPT. Pergunte sobre consumo, compare abastecimentos e gerencie seus dados por lá.</p>
+        <a href="https://chatgpt.com/g/g-69f8c4254da081919da115f90af3656d-litrocerto" target="_blank" rel="noopener">Abrir no ChatGPT →</a>
+      </div>
+
+      <div class="ai-card">
+        <span class="ai-num">03</span>
+        <span style="font-size:2rem;">⚡</span>
+        <h3>Conector MCP para Claude</h3>
+        <p>Conecte o Claude ao LitroCerto via MCP e deixe a IA acessar seus dados diretamente — registrar, consultar e analisar sem esforço.</p>
+        <a href="https://app.litrocerto.com.br/mcp" target="_blank" rel="noopener">Ver instruções de conexão →</a>
+      </div>
+
     </div>
   </section>
 
